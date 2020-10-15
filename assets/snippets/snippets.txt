@@ -1,0 +1,222 @@
+# Going to the other page with ability to get back
+
+onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SecondRoute()),
+  );
+}
+
+# get back to previous page
+        automaticallyImplyLeading: false,
+        leading: BackButton(
+          color: Utils.appColors["colorWhite"],
+          onPressed: (){
+            Navigator.canPop(context);
+          },
+),
+
+# Initialize the ProgressDialog object
+
+final ProgressDialog pr = ProgressDialog(context);
+
+# For normal dialog
+pr = ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: true/false, showLogs: true/false);
+
+# For showing progress percentage
+pr =  ProgressDialog(context,type: ProgressDialogType.Download, isDismissible: true/false, showLogs: true/false);
+
+pr.style(
+  message: 'Downloading file...',
+  borderRadius: 10.0,
+  backgroundColor: Colors.white,
+  progressWidget: CircularProgressIndicator(),
+  elevation: 10.0,
+  insetAnimCurve: Curves.easeInOut,
+  progress: 0.0,
+  textDirection: TextDirection.rtl,
+  maxProgress: 100.0,
+  progressTextStyle: TextStyle(
+     color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+  messageTextStyle: TextStyle(
+     color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600)
+  );
+
+await pr.show();
+
+pr.update(
+  progress: 50.0,
+  message: "Please wait...",
+  progressWidget: Container(
+    padding: EdgeInsets.all(8.0), child: CircularProgressIndicator()),
+  maxProgress: 100.0,
+  progressTextStyle: TextStyle(
+    color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+  messageTextStyle: TextStyle(
+    color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
+  );
+await pr.hide();
+
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Center(
+      child: RaisedButton(
+        onPressed: _incrementCounter,
+        child: Text('Increment Counter'),
+        ),
+      ),
+    ),
+  ));
+}
+
+_incrementCounter() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  int counter = (prefs.getInt('counter') ?? 0) + 1;
+  print('Pressed $counter times.');
+  await prefs.setInt('counter', counter);
+}
+
+
+import 'dart:io';
+
+import 'package:webview_flutter/webview_flutter.dart';
+
+class WebViewExample extends StatefulWidget {
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WebView(
+      initialUrl: 'https://flutter.dev',
+    );
+  }
+}
+
+android {
+    defaultConfig {
+        // Required by the Flutter WebView plugin.
+        minSdkVersion 19
+    }
+  }
+
+
+
+import 'package:http/http.dart' as http;
+
+var url = 'https://example.com/whatsit/create';
+var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+print('Response status: ${response.statusCode}');
+print('Response body: ${response.body}');
+
+print(await http.read('https://example.com/foobar.txt'));
+
+
+import 'package:connectivity/connectivity.dart';
+
+var connectivityResult = await (Connectivity().checkConnectivity());
+if (connectivityResult == ConnectivityResult.mobile) {
+  // I am connected to a mobile network.
+} else if (connectivityResult == ConnectivityResult.wifi) {
+  // I am connected to a wifi network.
+}
+
+import 'package:device_info/device_info.dart';
+
+DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+print('Running on ${androidInfo.model}');  // e.g. "Moto G (4)"
+
+IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
+
+
+
+Android: minSdkVersion 17 and add support for androidx (see AndroidX Migration)
+iOS: --ios-language swift, Xcode version >= 11
+Setup
+iOS
+Add these lines to Info.plist
+
+<key>io.flutter.embedded_views_preview</key>
+<true/>
+For more info, see here
+
+Android
+Set minSdkVersion of your android/app/build.gradle file to at least 17.
+
+For more info, see here
+
+Note: Although the minimum to be set is 17, the player won't play on device with API < 20. For API < 20 devices, you might want to forward the video to be played using YouTube app instead, using packages like url_launcher or android_intent.
+
+Using Youtube Player
+YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: 'iLnmTe5Q2Qw',
+    flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+    ),
+);
+
+YoutubePlayer(
+    controller: _controller,
+    showVideoProgressIndicator: true,
+    videoProgressIndicatorColor: Colors.amber,
+    progressColors: ProgressColors(
+        playedColor: Colors.amber,
+        handleColor: Colors.amberAccent,
+    ),
+    onReady () {
+        _controller.addListener(listener);
+    },
+),
+For FullScreen Support
+If fullscreen support is required, wrap your player with YoutubePlayerBuilder
+
+YoutubePlayerBuilder(
+    player: YoutubePlayer(
+        controller: _controller,
+    ),
+    builder: (context, player){
+        return Column(
+            children: [
+                // some widgets
+                player,
+                //some other widgets
+            ],
+        );
+    ),
+),
+
+YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: 'iLnmTe5Q2Qw',
+    flags: YoutubePLayerFlags(
+      isLive: true,
+    ),
+);
+
+YoutubePlayer(
+    controller: _controller,
+    liveUIColor: Colors.amber,
+),
+
+YoutubePlayer(
+    controller: _controller,
+    bottomActions: [
+      CurrentPosition(),
+      ProgressBar(isExpanded: true),
+      TotalDuration(),
+    ],
+),
+
+String videoId;
+videoId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=BBAyRBTfsOU");
+print(videoId);
