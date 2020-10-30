@@ -24,30 +24,20 @@ class _MyDashboardState extends State<MyDashboard> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      backgroundColor: Color(0xFFF4F4F4),
+      backgroundColor: Color(0xFFD6D6D6),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: 130,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20)),
-            color: Utils.appColors["colorPrimary"],
+            color: Utils.appColors["colorWhite"],
           ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                HHTService(Icon(Icons.directions_bike,color: Colors.white,)),
-                HHTService(Icon(Icons.fitness_center,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_walk,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
-                HHTService(Icon(Icons.directions_run,color: Colors.white,)),
+
               ],
             ),
           ),

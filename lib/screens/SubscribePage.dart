@@ -2,7 +2,7 @@ import 'package:HHTFITNESS/screens/LoginPage.dart';
 import 'package:HHTFITNESS/utils/Utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:flutter/services.dart';
 
 class SubscribePage extends StatelessWidget {
   @override
@@ -43,7 +43,7 @@ class _MySubscribePageState extends State<MySubscribePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setEnabledSystemUIOverlays([]);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
